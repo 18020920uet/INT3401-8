@@ -1,0 +1,24 @@
+Q1: DFS 
+  - Bài làm: 
+  Sử dụng 1 stack để lưu các phần tử 
+          1 mảng visited để lưu các phần tử  đã đi qua
+          1 mảng path để lưu quá trình đi (hướng đi)
+
+  Nếu vị trí bắt đầu đã là vị trí kết thúc thì trả lại vị trí bắt đầu, quá trình đi = rỗng
+  
+  vị trí là (x, y)
+
+  Nếu vị trí bắt đầu ko phải vị trí kết thúc thì:
+    - Thêm phần tử bắt đầu + path vào stack
+    - Khi stack mà là rỗng thì trả lại path nếu không thì:
+        -> lấy stack pop ra thì có vị trí (vị trí bắt đầu) và có path lúc đầu cho vào
+        -> thêm vị trí vào visited đánh dấu là đã đi rồi
+      - nếu vị trí này là điểm kết thúc => trả lại path (isGoalState)
+      - nếu không
+        -> lấy các điểm có thể đi của vị trí bằng hàm getSuccessors là successors
+          mỗi phần tử của successors nếu phần tử successor đấy nếu có trong visited thì chạy cái successor khác
+
+          nếu phần tử successor đấy mà ko có trong visited thì 
+                    tạo newPath bằng cách thêm hướng của điểm đấy vào path
+                rồi lại đệ quy hàm đấy với (điểm position của successor,  và newPath)
+                cứ đệ quy đến khi nào check điểm kết thúc bằng isGoalState thì trả lại path
