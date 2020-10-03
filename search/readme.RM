@@ -1,24 +1,33 @@
-Q1: DFS 
-  - Bài làm: 
-  Sử dụng 1 stack để lưu các phần tử 
-          1 mảng visited để lưu các phần tử  đã đi qua
-          1 mảng path để lưu quá trình đi (hướng đi)
+`visited` 1 mảng để lưu các node đã qua
+`currentNode` node hiện tại đang duyệt
+`path` quá trình đi (actions) đến node hiện tại
 
-  Nếu vị trí bắt đầu đã là vị trí kết thúc thì trả lại vị trí bắt đầu, quá trình đi = rỗng
-  
-  vị trí là (x, y)
+Q1: DFS
+`myStack` để lưu các node trong quá trình duyệt
+Duyệt đến khi nào tìm đc goalState hoặc stack rỗng
 
-  Nếu vị trí bắt đầu ko phải vị trí kết thúc thì:
-    - Thêm phần tử bắt đầu + path vào stack
-    - Khi stack mà là rỗng thì trả lại path nếu không thì:
-        -> lấy stack pop ra thì có vị trí (vị trí bắt đầu) và có path lúc đầu cho vào
-        -> thêm vị trí vào visited đánh dấu là đã đi rồi
-      - nếu vị trí này là điểm kết thúc => trả lại path (isGoalState)
-      - nếu không
-        -> lấy các điểm có thể đi của vị trí bằng hàm getSuccessors là successors
-          mỗi phần tử của successors nếu phần tử successor đấy nếu có trong visited thì chạy cái successor khác
+Q2: DBS
+`myQueue` để lưu các node trong quá trình duyệt
+Duyệt đến khi nào tìm đc goalState hoặc queue rỗng
 
-          nếu phần tử successor đấy mà ko có trong visited thì 
-                    tạo newPath bằng cách thêm hướng của điểm đấy vào path
-                rồi lại đệ quy hàm đấy với (điểm position của successor,  và newPath)
-                cứ đệ quy đến khi nào check điểm kết thúc bằng isGoalState thì trả lại path
+Q3: uniformCostSearch
+`myPriorityQueue` để lưu các node trong quá trình duyệt
+ưu tiên cost bé nhất
+`PriorityQueue` pop sẽ ra phần tử được ưu tiên trước ra tiếp
+Duyệt đến khi nào tìm đc goalState hoặc PriorityQueue rỗng
+
+Q4: A*search
+`myPriorityQueue` để lưu các node trong quá trình duyệt
+ưu tiên hàm tổng của cost và nullHeuristic = 0
+Duyệt đến khi nào tìm đc goalState hoặc PriorityQueue rỗng
+
+Q5: CornerProblem
+- isGoalState
+  nếu đi qua 4 Corner thì trả về đúng
+- getStartState
+  init giá trị đầu tiên bằng giá trị giá của startState - vị trí của pacman
+- getSuccessors:
+  successors = các phần tử đi được
+  trả về các successors
+
+Q6: 

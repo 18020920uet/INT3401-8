@@ -83,46 +83,86 @@ def depthFirstSearch(problem):
 
     To get started, you might want to try some of these simple commands to
     understand the search problem that is being passed in:
-
-
+    print "Start:", problem.getStartState()
+    print "Is the start a goal?", problem.isGoalState(problem.getStartState())
+    print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
+
     "*** YOUR CODE HERE ***"
-    stack = util.Stack()
 
-    visited = []
-
-    path = []
-
-    if problem.isGoalState(problem.getStartState()):
+    startingNode = problem.getStartState()
+    if problem.isGoalState(startingNode):
         return []
 
-    stack.push((problem.getStartState(), []))
+    myStack = util.Stack()
+    visited = []
+    path = []
 
-    while (stack.isEmpty() == False):
-        position, path = stack.pop()
-        visited.append(position)
+    myStack.push((startingNode, path))
 
-        if problem.isGoalState(position):
-            return path
+    while not myStack.isEmpty():
+        currentNode, path = myStack.pop()
 
-        successors = problem.getSuccessors(position)
-        if successors:
-            for successor in successors:
-                if successor[0] not in visited:
-                    newPath = path + [successor[1]]
-                    stack.push((successor[0], newPath))
+        if currentNode not in visited:
+            visited.append(currentNode)
+
+            if problem.isGoalState(currentNode):
+                return path
+
+            for nextNode, action, cost in problem.getSuccessors(currentNode):
+                myStack.push((nextNode, path + [action]))
 
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+    startingNode = problem.getStartState()
+    if problem.isGoalState(startingNode):
+        return []
+
+    myQueue = util.Queue()
+    visited = []
+    path = []
+
+    myQueue.push((startingNode, path))
+
+    while not myQueue.isEmpty():
+        currentNode, path = myQueue.pop()
+        if currentNode not in visited:
+            visited.append(currentNode)
+
+            if problem.isGoalState(currentNode):
+                return path
+
+            for nextNode, action, cost in problem.getSuccessors(currentNode):
+                myQueue.push((nextNode, path + [action]))
 
 
 def uniformCostSearch(problem):
-    """Search the node of least total cost first."""
+    "Search the node of least total cost first. "
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+    startingNode = problem.getStartState()
+    if problem.isGoalState(startingNode):
+        return []
+    path = []
+    myPriorityQueue = util.PriorityQueue()
+    myPriorityQueue.push((startingNode, path, 0), 0)
+
+    visitedNodes = []
+
+    while not myPriorityQueue.isEmpty():
+        currentNode, path, prevCost = myPriorityQueue.pop()
+        if currentNode not in visitedNodes:
+            visitedNodes.append(currentNode)
+
+            if problem.isGoalState(currentNode):
+                return path
+
+            for nextNode, action, cost in problem.getSuccessors(currentNode):
+                myPriorityQueue.push(
+                    (nextNode, path + [action], prevCost+cost), prevCost+cost)
 
 
 def nullHeuristic(state, problem=None):
@@ -136,7 +176,30 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+    startingNode = problem.getStartState()
+    if problem.isGoalState(startingNode):
+        return []
+
+    visited = []
+    path = []
+    myPriorityQueue = util.PriorityQueue()
+
+    myPriorityQueue.push((startingNode, [], 0), 0)
+
+    while not myPriorityQueue.isEmpty():
+
+        currentNode, path, prevCost = myPriorityQueue.pop()
+
+        if currentNode not in visited:
+            visited.append(currentNode)
+
+            if problem.isGoalState(currentNode):
+                return path
+
+            for nextNode, action, cost in problem.getSuccessors(currentNode):
+                myPriorityQueue.push((nextNode, path + [action], prevCost + cost),
+                                     prevCost + cost + heuristic(nextNode, problem))
 
 
 # Abbreviations
