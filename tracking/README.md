@@ -1,8 +1,8 @@
-# ** Tracking **
+# Tracking
 
 http://ai.berkeley.edu/tracking.html
 
-## **[18020920 | K63J] - [Nguyễn Văn Nam] **
+## [18020920 | K63J] - [Nguyễn Văn Nam]
 
 ### Mô tả
 
